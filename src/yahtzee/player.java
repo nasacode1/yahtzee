@@ -1,21 +1,6 @@
 package yahtzee;
 import java.util.*;
 public class player {
-	private int currScore;
-	private String nickname;
-
-	public void setName(String nickname) {
-		this.nickname = nickname;
-	}
-	
-	public String getName() {
-		return this.nickname;
-	}
-	
-	public player(){
-		this.currScore = 0;
-	}
-	
 	public int totalDices(int[] values) {
 		int total= 0;
 		for(int value: values) {
@@ -51,19 +36,16 @@ public class player {
 		
 	}
 	
-	public int getScore() {
-		return this.currScore;
-	}
 	
-	
-	public void calculateScore(int[] values, Scanner scanner) {
+	public int calculateScore(int[] values, Scanner scanner) {
 		System.out.println("Enter which category to calculate score in:");
 		System.out.println("1. Aces\n2. Twos\n3. Threes\n4. Fours\n5. Fives\n6. Sixes\n7.3 of a kind\n8.4 of a kind\n9. Full house\n10. Small straight\n11.Large straight\n12. Yahtzee\n13. Chance");
+		int currScore = 0;
 		int category = scanner.nextInt();
 		if(category < 7) {
 			for(int value:values) {
 				if(value == category) {
-					this.currScore += value;
+					currScore += value;
 				}
 			}
 		}
@@ -72,7 +54,7 @@ public class player {
 			System.out.println("Enter which number comes 3 of a kind");
 			int n1 = scanner.nextInt();
 			if(verifyCount(values, 3, n1)) {
-				this.currScore += totalDices(values);
+				currScore = totalDices(values);
 			}
 			else {
 				System.out.println("You dont fit in category "+ category);
@@ -81,7 +63,7 @@ public class player {
 			System.out.println("Enter which number comes 4 of a kind");
 			int n2 = scanner.nextInt();
 			if(verifyCount(values, 4, n2)) {
-				this.currScore += totalDices(values);
+				currScore = totalDices(values);
 			}
 			else {
 				System.out.println("You dont fit in category "+ category);
@@ -93,23 +75,24 @@ public class player {
 			System.out.println("Enter which is 2 of a kind");
 			int n4= scanner.nextInt();
 			if(verifyCount(values, 3, n3) && verifyCount(values, 2, n4)) {
-				this.currScore +=25;
+				currScore =25;
 			}
 		case 10:
 			System.out.println("This is small straight, ie, sequence of 4 continuous numbers");
-			this.currScore += (hasSequence(values, 4)) ? 30: 0;
+			currScore = (hasSequence(values, 4)) ? 30: 0;
 
 		case 11:
 			System.out.println("This is small straight, ie, sequence of 4 continuous numbers");
-			this.currScore += (hasSequence(values, 5)) ? 40: 0;
+			currScore = (hasSequence(values, 5)) ? 40: 0;
 		
 		case 12: 
 			System.out.println("This is yahtzee");
 			System.out.println("Enter which number occurs in a count of 5.");
 			int n8 = scanner.nextInt();
-			this.currScore += (verifyCount(values, 5, n8)) ? 50:0;
-
+			currScore = (verifyCount(values, 5, n8)) ? 50:0;
+				
+			
 	}
-		
+		return currScore;
 }
 }

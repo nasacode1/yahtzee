@@ -2,7 +2,6 @@ package yahtzee;
 import java.util.*;
 
 public class dice {
-	
 	public int[] roll(int number){
 		Random random = new Random();
 	
@@ -13,4 +12,7 @@ public class dice {
 		return values;
 	}
 	
+	
+	
+
 }
